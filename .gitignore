@@ -1,3 +1,9 @@
+# NWB
+/coverage
+/dist
+/node_modules
+npm-debug.log
+
 # Logs
 logs
 *.log
