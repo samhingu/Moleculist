@@ -2,20 +2,18 @@
   "name": "moleculist",
   "version": "1.0.0",
   "description": "Describe moleculist here",
-  "private": true,
+  "private": false,
   "scripts": {
-    "build": "nwb build-react-app",
-    "clean": "nwb clean-app",
-    "start": "nwb serve-react-app",
-    "test": "nwb test",
-    "test:watch": "nwb test --server"
   },
   "dependencies": {
+    "babel-polyfill": "^6.13.0",
+    "classnames": "^2.2.5",
+    "flexboxgrid": "^6.3.1",
     "react": "^15.3.0",
-    "react-dom": "^15.3.0"
+    "react-dom": "^15.3.0",
+    "react-flexbox-grid": "^0.10.2"
   },
   "devDependencies": {
-    "nwb": "0.11.x"
   },
   "author": "",
   "license": "MIT",
