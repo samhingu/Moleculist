@@ -7,6 +7,7 @@ var PORT = 4000;
 var IP = 'localhost';
 
 new WebpackDevServer(webpack(config), {
+    quiet: true,
     publicPath: config.output.publicPath,
     hot: true,
     historyApiFallback: true

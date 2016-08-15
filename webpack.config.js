@@ -1,6 +1,10 @@
 var path = require('path');
 var webpack = require('webpack');
 
+var Dashboard = require('webpack-dashboard');
+var DashboardPlugin = require('webpack-dashboard/plugin');
+var dashboard = new Dashboard();
+
 var PATH  ={
   dist: path.join(__dirname, 'dist'),
   src: path.join(__dirname,'src')
@@ -22,6 +26,7 @@ module.exports = {
     },
     plugins: [
         new webpack.HotModuleReplacementPlugin(),
+        new DashboardPlugin(dashboard.setData)
         //webpack.NoErrorsPlugin()
     ],
     module: {

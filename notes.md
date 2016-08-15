@@ -4,6 +4,7 @@ Started With https://github.com/astnt/react-redux-universal-heroku
 Continue with https://github.com/gaearon/react-hot-boilerplate
 Learn hot module setting from :
 - http://stackoverflow.com/questions/26203725/how-to-allow-for-webpack-dev-server-to-allow-entry-points-from-react-router
+- http://webpack.github.io/docs/webpack-dev-server.html
 
 
 
@@ -26,4 +27,6 @@ Learn hot module setting from :
 
 // add eslint required packages
 - npm i -D eslint eslint-plugin-react babel-eslint
--
+
+// add webpack-dashboard support
+- npm i -D webpack-dashboard
