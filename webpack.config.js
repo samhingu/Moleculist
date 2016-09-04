@@ -5,9 +5,9 @@ var Dashboard = require('webpack-dashboard');
 var DashboardPlugin = require('webpack-dashboard/plugin');
 var dashboard = new Dashboard();
 
-var PATH  ={
-  dist: path.join(__dirname, 'dist'),
-  src: path.join(__dirname,'src')
+var PATH = {
+    dist: path.join(__dirname, 'dist'),
+    src: path.join(__dirname, 'src')
 };
 module.exports = {
     // require for source-map
@@ -37,16 +37,25 @@ module.exports = {
             // something more custom, pass a path to it.
             // I.e., babel?cacheDirectory=<path>
             loaders: ['react-hot', 'babel?cacheDirectory'],
-                // Parse only app files! Without this it will go through
-                // the entire project. In addition to being slow,
-                // that will most likely result in an error.
+            // Parse only app files! Without this it will go through
+            // the entire project. In addition to being slow,
+            // that will most likely result in an error.
             include: PATH.src
-        }]
+        },
+            {
+                test: /\.scss$/,
+                loader: 'style!css!sass?outputStyle=compressed'
+            }]
+    },
+    sassLoader: {
+        includePaths: [
+            './node_modules', PATH.src
+        ]
     },
     // Important! Do not remove ''. If you do, imports without
     // an extension won't work anymore!
     resolve: {
-        extensions: ['', '.js', '.jsx']
+        extensions: ['', '.js', '.jsx', '.scss', '.css']
         // alias: {
         //     'react': 'react-lite',
         //     'react-dom': 'react-lite'
