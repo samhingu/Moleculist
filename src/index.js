@@ -4,9 +4,20 @@ import './style'
 
 import React from 'react'
 import {render} from 'react-dom'
+import { Provider } from 'react-redux'
+import { Router, browserHistory } from 'react-router'
+import { syncHistoryWithStore } from 'react-router-redux'
 
-import App from './components/App'
+import routes from './routes'
+import configureStore from './store/configureStore'
 
-render(<App />, document.getElementById('content'))
+const store = configureStore()
+const history = syncHistoryWithStore(browserHistory, store)
+
+render(
+    <Provider store={store}>
+        <Router history={history} routes={routes} />
+    </Provider>, document.getElementById('content')
+)
 
 document.body.classList.remove('loading');

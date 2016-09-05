@@ -20,7 +20,7 @@ Learn hot module setting from :
 - npm i -D babel-preset-{es2015,es2015-loose,react,stage-0}
 
 // use react-lite instead of react because react contains features like server rendering which we don't want.
-- npm i -D react-lite
+// - npm i -D react-lite
 
 // babel-preset-react-hmre deprecated so use react-hot-loader
 - npm i -D react-hot-loader
@@ -30,3 +30,14 @@ Learn hot module setting from :
 
 // add webpack-dashboard support
 - npm i -D webpack-dashboard
+
+// added splash loading from grommet-blog template
+// added grommet ux package
+- npm i -S grommet
+// added scss support for webpack
+- npm i -D css-loader style-loader node-sass sass-loader
+// added grommet-template
+- npm i -S grommet-template
+// Take reference from Starter kit : https://github.com/coryhouse/react-slingshot
+// added required packages
+- npm i -S react-router redux react-redux react-router-redux redux-thunk object-assign

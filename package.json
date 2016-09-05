@@ -10,8 +10,15 @@
   "dependencies": {
     "babel-polyfill": "^6.13.0",
     "grommet": "^0.6.11",
+    "grommet-templates": "^0.2.0",
+    "object-assign": "^4.1.0",
     "react": "^15.3.0",
-    "react-dom": "^15.3.0"
+    "react-dom": "^15.3.0",
+    "react-redux": "^4.4.5",
+    "react-router": "^2.7.0",
+    "react-router-redux": "^4.0.5",
+    "redux": "^3.6.0",
+    "redux-thunk": "^2.1.0"
   },
   "devDependencies": {
     "babel-core": "^6.13.2",

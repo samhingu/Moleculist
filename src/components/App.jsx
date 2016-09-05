@@ -13,12 +13,9 @@ import Button from 'grommet/components/Button'
 import Split from 'grommet/components/Split'
 import Article from 'grommet/components/Article'
 
-
 import MenuIcon from 'grommet/components/icons/base/Menu'
 import CloseIcon from 'grommet/components/icons/base/Close'
 import FavoriteIcon from 'grommet/components/icons/base/Favorite'
-
-import BlogList from './BlogList'
 
 export default class MainApp extends Component {
   _onClose() {
@@ -38,7 +35,7 @@ export default class MainApp extends Component {
           </Title>
           <Search inline={true} placeHolder="Search" />
         </Header>
-        <BlogList />
+        {this.props.children}
         <Footer
           primary={true}
           appCentered={true}
