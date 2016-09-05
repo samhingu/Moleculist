@@ -4,14 +4,26 @@ import { connect } from 'react-redux'
 
 import * as actions from '../actions/toggleSidebarActions'
 import ToggleSidebarComponent from '../components/toggleSidebarComponent'
+import BlogEdit from '../components/BlogEdit'
 
 class ToggleSidebarPage extends Component {
+    renderBlogEditPage() {
+        return <BlogEdit />
+    }
     render() {
+        let blogEditPage;
+        let showSidebar = this.props.toggleSidebar.showSidebar
+        if (showSidebar) {
+            blogEditPage = this.renderBlogEditPage()
+        }
         return (
-            <ToggleSidebarComponent
-                toggleSidebar={this.props.actions.toggleSidebarWithThunk}
-                showSidebar={this.props.toggleSidebar.showSidebar}
-                />
+            <div>
+                <ToggleSidebarComponent
+                    toggleSidebar={this.props.actions.toggleSidebarWithThunk}
+                    showSidebar={showSidebar}
+                    />
+                {blogEditPage}
+            </div>
         )
     }
 }
