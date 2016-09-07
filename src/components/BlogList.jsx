@@ -9,54 +9,47 @@ import SocialFacebook from 'grommet/components/icons/base/SocialFacebook'
 import SocialLinkedin  from 'grommet/components/icons/base/SocialLinkedin'
 import SocialTwitter from 'grommet/components/icons/base/SocialTwitter'
 import LinkNext from 'grommet/components/icons/base/LinkNext'
-
+import Spinning from 'grommet/components/icons/Spinning'
 
 class BlogList extends Component {
-    _onArticleClick(){
-        console.log('more called');
+    componentDidMount() {
+        this.props.loadLinks()
     }
-    render() {
+
+    _onArticleClick(link) {
+        this.props.onBlogClick(link);
+    }
+    _renderBlogItem(link) {
+        return (
+            <Card key={link._id} onClick={this._onArticleClick.bind(this, link) }
+                label={link.title}
+                heading={link.title}
+                description={link.body}>
+                <Heading tag="h2">
+                    {link.body}
+                </Heading>
+                <Box align="end">
+                    <SocialTwitter />
+                </Box>
+            </Card>
+        )
+    }
+    _renderBlogList(links) {
         return (
             <Tiles size="large" colorIndex="light-2" fill={true} selectable={true}>
-                <Card onClick={this._onArticleClick} label="This is Label" heading="Thisis heading" description="this is Descrpition">
-                    <Heading tag="h2">
-                        Protect Your Digital Enterprise ipsum lorem dolores aeat el
-                    </Heading>
-                    <Box align="end">
-                        <SocialTwitter />
-                    </Box>
-                </Card>
-                <Card label="Featured Post" link={<Anchor href="http://grommet.github.io" label="Learn More" icon={<LinkNext />} />}>
-                    <Heading tag="h2">
-                        Protect Your Digital Enterprise ipsum lorem dolores aeat el
-                    </Heading>
-                </Card>
-                <Card label="Social">
-                    <Heading tag="h2">
-                        Protect Your Digital Enterprise ipsum lorem dolores aeat el
-                    </Heading>
-                    <Box align="end">
-                        <SocialFacebook />
-                    </Box>
-                </Card>
-                <Card label="Social">
-                    <Heading tag="h2">
-                        Protect Your Digital Enterprise ipsum lorem dolores aeat el
-                    </Heading>
-                    <Box align="end">
-                        <SocialLinkedin />
-                    </Box>
-                </Card>
-                <Card label="Social">
-                    <Heading tag="h2">
-                        Protect Your Digital Enterprise ipsum lorem dolores aeat el
-                    </Heading>
-                    <Box align="end">
-                        <SocialLinkedin />
-                    </Box>
-                </Card>
+                {links.map(this._renderBlogItem.bind(this)) }
             </Tiles>
-        );
+        )
+    }
+    render() {
+        let { isLoading, errorMessage, links } = this.props
+
+        return (
+            <div>
+                {!isLoading || <Spinning />}
+                {errorMessage || this._renderBlogList(links) }
+            </div>
+        )
     }
 }
 

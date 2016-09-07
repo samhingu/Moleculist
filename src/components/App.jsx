@@ -1,27 +1,28 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router'
 
 import App from 'grommet/components/App'
 import Header from 'grommet/components/Header'
+import Heading from 'grommet/components/Heading'
 import Footer from 'grommet/components/Footer'
 import Box from 'grommet/components/Box'
 import Title from 'grommet/components/Title'
 import Search from 'grommet/components/Search'
-import Sidebar from 'grommet/components/Sidebar'
 import Menu from 'grommet/components/Menu'
-import Anchor from 'grommet/components/Anchor'
-import Button from 'grommet/components/Button'
-import Split from 'grommet/components/Split'
-import Article from 'grommet/components/Article'
 
 import MenuIcon from 'grommet/components/icons/base/Menu'
-import CloseIcon from 'grommet/components/icons/base/Close'
 import FavoriteIcon from 'grommet/components/icons/base/Favorite'
 
 export default class MainApp extends Component {
-  _onClose() {
-    console.log('Close Side Menu');
-  }
   render() {
+    const logo = (
+      <Title>
+        <Link to="/blog">
+          <MenuIcon />
+          <Heading tag="h3">Moleculist</Heading>
+        </Link>
+      </Title>
+    );
     return (
       <App centered={false}>
         <Header large={true}
@@ -29,10 +30,7 @@ export default class MainApp extends Component {
           justify="between"
           pad={{ "horizontal": "medium" }}
           colorIndex="brand">
-          <Title onClick={this._onClose}>
-            <MenuIcon />
-            Moleculist
-          </Title>
+          {logo}
           <Search inline={true} placeHolder="Search" />
         </Header>
         {this.props.children}

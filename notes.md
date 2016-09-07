@@ -41,3 +41,5 @@ Learn hot module setting from :
 // Take reference from Starter kit : https://github.com/coryhouse/react-slingshot
 // added required packages
 - npm i -S react-router redux react-redux react-router-redux redux-thunk object-assign
+// added redux-logger and redux-actions
+- npm i -S redux-actions redux-logger

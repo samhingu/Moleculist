@@ -20,4 +20,4 @@ render(
     </Provider>, document.getElementById('content')
 )
 
-document.body.classList.remove('loading');
+document.body.classList.remove('loading')
