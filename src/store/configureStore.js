@@ -16,8 +16,16 @@ export default function configureStore(initialState) {
         logger
     ]
 
-    return createStore(rootReducer, initialState,
-        compose(applyMiddleware(...middleware),
-            window.devToolsExtension ? window.devToolsExtension() : f => f)
-    )
+    const enhancer = compose(applyMiddleware(...middleware),
+        window.devToolsExtension ? window.devToolsExtension() : f => f)
+
+    const store = createStore(rootReducer, initialState, enhancer)
+
+    if (module.hot) {
+        module.hot.accept('../reducers', () => {
+            store.replaceReducer(require('./../reducers').default)
+        })
+    }
+
+    return store;
 }

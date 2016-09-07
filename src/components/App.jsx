@@ -19,8 +19,8 @@ export default class MainApp extends Component {
       <Title>
         <Link to="/blog">
           <MenuIcon />
-          <Heading tag="h3">Moleculist</Heading>
         </Link>
+        <Heading tag="h3">Moleculist</Heading>
       </Title>
     );
     return (

@@ -11,7 +11,7 @@ class ToggleSidebarPage extends Component {
             <div>
                 <ToggleSidebarComponent
                     toggleSidebar={this.props.actions.toggleSidebarWithThunk}
-                    showSidebar={showSidebar}
+                    showSidebar={<this className="props toggleSidebar showSidebar"></this>}
                     />
             </div>
         )
@@ -30,36 +30,4 @@ function mapDispatcherToProps(dispatch) {
     }
 }
 
-export default connect(mapStateToProps, mapDispatcherToProps)(ToggleSidebarPage);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+export default connect(mapStateToProps, mapDispatcherToProps)(ToggleSidebarPage)
