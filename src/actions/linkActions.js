@@ -1,7 +1,7 @@
 import { createAction } from "redux-actions"
 
 import * as ActionTypes from "../constants/actionTypes"
-import { apiGetLinks, apiDeleteLink, apiAddLink } from "../apis/fetch"
+import { apiGetLinks, apiDeleteLink, apiSaveLink } from "../apis/fetch"
 
 const getLinksRequest = createAction(ActionTypes.GET_LINKS_REQUEST)
 const getLinksError = createAction(ActionTypes.GET_LINKS_ERROR)
@@ -27,19 +27,21 @@ const deleteLink = (linkId) => (dispatch) => {
     )
 }
 
+const editLink = createAction(ActionTypes.EDIT_LINK)
+const editLinkCancel = createAction(ActionTypes.EDIT_LINK_CANCEL)
 
-const addLinkRequest = createAction(ActionTypes.ADD_LINK_REQUEST)
-const addLinkError = createAction(ActionTypes.ADD_LINK_ERROR)
-const addLinkSuccess = createAction(ActionTypes.ADD_LINK_SUCCESS)
+const saveLinkRequest = createAction(ActionTypes.SAVE_LINK_REQUEST)
+const saveLinkError = createAction(ActionTypes.SAVE_LINK_ERROR)
+const saveLinkSuccess = createAction(ActionTypes.SAVE_LINK_SUCCESS)
 
-const addLink = (link) => (dispatch) => {
-    dispatch(addLinkRequest())
-    apiAddLink(link,
-        () => dispatch(addLinkSuccess()),
-        (errorMessage) => dispatch(addLinkError(errorMessage))
+const saveLink = (link) => (dispatch) => {
+    dispatch(saveLinkRequest())
+    apiSaveLink(link,
+        () => dispatch(saveLinkSuccess()),
+        (errorMessage) => dispatch(saveLinkError(errorMessage))
     )
 }
 
 
 
-export { getLinks, deleteLink, addLink }
+export { getLinks, deleteLink, saveLink, editLink, editLinkCancel }

@@ -50,7 +50,7 @@ class BlogList extends Component {
             <div>
                 <NotifyLoading loading={isLoading} message="Blogs"  />
                 <NotifyError title="Error getting blogs" message={errorMessage} />
-                { errorMessage || this._renderBlogList(links) }
+                { !!errorMessage  || this._renderBlogList(links) }
             </div>
         )
     }

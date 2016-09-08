@@ -4,23 +4,47 @@ import { connect } from 'react-redux'
 
 import * as actions from '../actions/linkActions'
 import BlogList from '../components/blog/BlogList'
+import BlogAddEdit from '../components/blog/BlogAddEdit'
 
 class BlogListPage extends Component {
     onBlogClick(link) {
-        alert(link.title)
+        this.props.actions.editLink(link)
     }
     onLoadLink() {
-        this.props.actions.getLinks();
+        this.props.actions.getLinks()
+    }
+    onClose() {
+        this.props.actions.editLinkCancel()
+    }
+    onSubmit() {
+        alert('onSubmit Called')
+    }
+
+    _renderAddEditBlogPage(link) {
+        return (
+            <BlogAddEdit
+                saving={false}
+                onClose={this.onClose.bind(this) }
+                onSubmit={this.onSubmit.bind(this) }
+                isAdd={!link._id} link={link}  />
+        )
     }
     render() {
+        var addEditBlog
+        if (this.props.saveLinkData._id) {
+            addEditBlog = this._renderAddEditBlogPage(this.props.saveLinkData)
+        }
         return (
-            <BlogList
-                isLoading={this.props.status.isLoading}
-                errorMessage={this.props.status.errorMessage}
-                links={this.props.links}
-                loadLinks={this.onLoadLink.bind(this) }
-                onBlogClick={this.onBlogClick.bind(this) }
-                />
+            <div>
+                {addEditBlog}
+                <BlogList
+                    isLoading={this.props.status.isLoading}
+                    errorMessage={this.props.status.errorMessage}
+                    links={this.props.links}
+                    loadLinks={this.onLoadLink.bind(this) }
+                    onBlogClick={this.onBlogClick.bind(this) }
+                    />
+            </div>
         )
     }
 }
@@ -28,7 +52,9 @@ class BlogListPage extends Component {
 function mapStateToProps(state) {
     return {
         links: state.getLinksData,
-        status: state.getLinksState
+        status: state.getLinksState,
+        saveLinkData: state.saveLinkData,
+        saveLinkStatus: state.saveLinkStatus
     }
 }
 

@@ -22,8 +22,9 @@ export class NotifyLoading extends Component {
         const message = `Loading ${this.props.message}`;
         return (
             <div>
-            {!this.props.loading ||
-                <Notification message={message} /> }
+                {!this.props.loading ||
+                    <Notification
+                        message={message} /> }
             </div>
         )
     }

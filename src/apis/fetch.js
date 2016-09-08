@@ -33,7 +33,7 @@ export const apiDeleteLink = (linkId, success, error) => {
         .catch(err => error(err.message))
 }
 
-export const apiAddLink = (data, success, error) => {
+export const apiSaveLink = (data, success, error) => {
     let fullUrl = `${API_URL}/links`
     fetch(fullUrl, {
         method: 'POST',
