@@ -11,6 +11,8 @@ import SocialTwitter from 'grommet/components/icons/base/SocialTwitter'
 import LinkNext from 'grommet/components/icons/base/LinkNext'
 import Spinning from 'grommet/components/icons/Spinning'
 
+import {NotifyError, NotifyLoading} from '../common/Notify'
+
 class BlogList extends Component {
     componentDidMount() {
         this.props.loadLinks()
@@ -46,8 +48,9 @@ class BlogList extends Component {
 
         return (
             <div>
-                {!isLoading || <Spinning />}
-                {errorMessage || this._renderBlogList(links) }
+                <NotifyLoading loading={isLoading} message="Blogs"  />
+                <NotifyError title="Error getting blogs" message={errorMessage} />
+                { errorMessage || this._renderBlogList(links) }
             </div>
         )
     }
