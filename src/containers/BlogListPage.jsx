@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
 import * as actions from '../actions/linkActions'
-import BlogList from '../components/BlogList'
+import BlogList from '../components/blog/BlogList'
 
 class BlogListPage extends Component {
     onBlogClick(link) {
