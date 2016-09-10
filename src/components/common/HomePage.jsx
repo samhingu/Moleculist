@@ -1,11 +1,16 @@
-import React, {Component} from 'react';
+import React, {Component} from 'react'
+
+import Header from 'grommet/components/Header'
+import Title from 'grommet/components/Title'
 
 class HomePage extends Component {
     render() {
         return (
-            <div>
-                This is Home Page
-            </div>
+            <Header justify="center">
+                <Title>
+                    HOME PAGE
+                </Title>
+            </Header>
         );
     }
 }

@@ -7,8 +7,13 @@ import BlogList from '../components/blog/BlogList'
 import BlogAddEdit from '../components/blog/BlogAddEdit'
 
 class BlogListPage extends Component {
+    
+    
     onBlogClick(link) {
         this.props.actions.editLink(link)
+    }
+    onAddBlogClick() {
+        this.props.actions.editLink({ title: 'My Title', body: 'My Body' });
     }
     onLoadLink() {
         this.props.actions.getLinks()
@@ -16,14 +21,14 @@ class BlogListPage extends Component {
     onClose() {
         this.props.actions.editLinkCancel()
     }
-    onSubmit() {
-        alert('onSubmit Called')
+    onSubmit(link) {
+        this.props.actions.saveLink(link);
     }
 
-    _renderAddEditBlogPage(link) {
+    _renderAddEditBlogPage(link, isSaving) {
         return (
             <BlogAddEdit
-                saving={false}
+                saving={isSaving}
                 onClose={this.onClose.bind(this) }
                 onSubmit={this.onSubmit.bind(this) }
                 isAdd={!link._id} link={link}  />
@@ -31,18 +36,20 @@ class BlogListPage extends Component {
     }
     render() {
         var addEditBlog
-        if (this.props.saveLinkData._id) {
-            addEditBlog = this._renderAddEditBlogPage(this.props.saveLinkData)
+        if (this.props.saveLinkData.title) {
+            addEditBlog = this._renderAddEditBlogPage(this.props.saveLinkData, this.props.saveLinkState.isLoading)
         }
         return (
             <div>
                 {addEditBlog}
                 <BlogList
+                    saving={this.props.saveLinkState.isLoading}
                     isLoading={this.props.status.isLoading}
                     errorMessage={this.props.status.errorMessage}
                     links={this.props.links}
                     loadLinks={this.onLoadLink.bind(this) }
                     onBlogClick={this.onBlogClick.bind(this) }
+                    onAddBlogClick={this.onAddBlogClick.bind(this) }
                     />
             </div>
         )
@@ -54,7 +61,7 @@ function mapStateToProps(state) {
         links: state.getLinksData,
         status: state.getLinksState,
         saveLinkData: state.saveLinkData,
-        saveLinkStatus: state.saveLinkStatus
+        saveLinkState: state.saveLinkState
     }
 }
 

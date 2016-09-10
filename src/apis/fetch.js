@@ -34,9 +34,13 @@ export const apiDeleteLink = (linkId, success, error) => {
 }
 
 export const apiSaveLink = (data, success, error) => {
+    const isAdd = !data._id;
     let fullUrl = `${API_URL}/links`
+    if (!isAdd) {
+        fullUrl = `${fullUrl}/${data._id}`
+    }
     fetch(fullUrl, {
-        method: 'POST',
+        method: isAdd ? 'POST' : 'PUT',
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'

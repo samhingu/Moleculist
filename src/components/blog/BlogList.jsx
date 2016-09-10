@@ -5,19 +5,29 @@ import Card from 'grommet/components/Card'
 import Heading from 'grommet/components/Heading'
 import Box from 'grommet/components/Box'
 import Anchor  from 'grommet/components/Anchor'
+import Button  from 'grommet/components/Button'
+
+
 import SocialFacebook from 'grommet/components/icons/base/SocialFacebook'
 import SocialLinkedin  from 'grommet/components/icons/base/SocialLinkedin'
 import SocialTwitter from 'grommet/components/icons/base/SocialTwitter'
 import LinkNext from 'grommet/components/icons/base/LinkNext'
 import Spinning from 'grommet/components/icons/Spinning'
+import ChapterAddIcon from 'grommet/components/icons/base/ChapterAdd'
 
 import {NotifyError, NotifyLoading} from '../common/Notify'
 
 class BlogList extends Component {
     componentDidMount() {
-        this.props.loadLinks()
+        this.props.loadLinks();
     }
 
+    shouldComponentUpdate(nextProps, nextState) {
+        if (!nextProps.saving && this.props.saving) {
+            this.props.loadLinks()
+        }
+        return true;
+    }
     _onArticleClick(link) {
         this.props.onBlogClick(link);
     }
@@ -48,9 +58,12 @@ class BlogList extends Component {
 
         return (
             <div>
+                <Box align="center" justify="center" pad="small">
+                    <Button  label="Add" icon={<ChapterAddIcon />} onClick={this.props.onAddBlogClick.bind(this) } />
+                </Box>
                 <NotifyLoading loading={isLoading} message="Blogs"  />
                 <NotifyError title="Error getting blogs" message={errorMessage} />
-                { !!errorMessage  || this._renderBlogList(links) }
+                { !!errorMessage || this._renderBlogList(links) }
             </div>
         )
     }
