@@ -7,10 +7,16 @@ const getLinksRequest = createAction(ActionTypes.GET_LINKS_REQUEST)
 const getLinksError = createAction(ActionTypes.GET_LINKS_ERROR)
 const getLinksSuccess = createAction(ActionTypes.GET_LINKS_SUCCESS)
 
-const getLinks = () => (dispatch) => {
+const getLinks = (pageIndex) => (dispatch) => {
     dispatch(getLinksRequest())
-    apiGetLinks(
-        (links) => dispatch(getLinksSuccess(links)),
+    apiGetLinks(pageIndex,
+        (data) => {
+            dispatch(getLinksSuccess({
+                links: data.data,
+                totalCount: data.total,
+                pageIndex
+            }))
+        },
         (errorMessage) => dispatch(getLinksError(errorMessage))
     )
 }

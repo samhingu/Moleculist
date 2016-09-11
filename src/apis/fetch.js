@@ -12,8 +12,8 @@ const checkStatus = (response) => {
 const parseJSON = (response) => response.json()
 
 
-export const apiGetLinks = (success, error) => {
-    let fullUrl = `${API_URL}/links`
+export const apiGetLinks = (pageIndex, success, error) => {
+    let fullUrl = `${API_URL}/links?pageIndex=${pageIndex}`
 
     fetch(fullUrl)
         .then(checkStatus)

@@ -20,12 +20,20 @@ class BlogList extends Component {
         )
     }
     _renderBlogList() {
-        return (
-            <Tiles size="large" colorIndex="light-2" fill={true} selectable={true}
+        if (this.props.totalCount == this.props.links.length) {
+            return (
+                <Tiles size="large" colorIndex="light-2" fill={true} selectable={true}>
+                    { this.props.links.map(this._renderBlogItem.bind(this)) }
+                </Tiles>
+            )
+        } else {
+            return (<Tiles size="large" colorIndex="light-2" fill={true} selectable={true}
                 onMore={this.props.loadLinks.bind(this) }>
                 { this.props.links.map(this._renderBlogItem.bind(this)) }
             </Tiles>
-        )
+            )
+        }
+
     }
     render() {
         const { errorMessage, onAddBlogClick } = this.props
@@ -50,6 +58,7 @@ class BlogList extends Component {
 
 BlogList.propTypes = {
     errorMessage: PropTypes.string,
+    totalCount: PropTypes.number.isRequired,
     links: PropTypes.arrayOf(PropTypes.object).isRequired,
     loadLinks: PropTypes.func.isRequired,
     onAddBlogClick: PropTypes.func.isRequired,

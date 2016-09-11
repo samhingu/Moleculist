@@ -14,7 +14,10 @@ class BlogListPage extends Component {
         this.props.actions.editLink({ title: 'My Title', body: 'My Body' });
     }
     _onLoadLinkClick() {
-        this.props.actions.getLinks()
+        if (!this.props.status.isLoading) {
+            let pageIndex = this.props.linksData.pageIndex;
+            this.props.actions.getLinks(pageIndex);
+        }
     }
     _onSaveClose() {
         this.props.actions.editLinkCancel()
@@ -34,14 +37,15 @@ class BlogListPage extends Component {
         )
     }
     render() {
-        const {saveLinkData, saveLinkState, status, links } = this.props;
+        const {saveLinkData, saveLinkState, status, linksData } = this.props;
         return (
             <div>
                 {!!saveLinkData.title
                     && this._renderAddEditBlogPage(saveLinkData, saveLinkState.isLoading) }
                 <BlogList
                     errorMessage={status.errorMessage}
-                    links={links}
+                    links={linksData.links}
+                    totalCount={linksData.totalCount}
                     loadLinks={this._onLoadLinkClick.bind(this) }
                     onBlogClick={this._onBlogClick.bind(this) }
                     onAddBlogClick={this._onAddBlogClick.bind(this) }
@@ -53,7 +57,7 @@ class BlogListPage extends Component {
 
 function mapStateToProps(state) {
     return {
-        links: state.getLinksData,
+        linksData: state.getLinksData,
         status: state.getLinksState,
         saveLinkData: state.saveLinkData,
         saveLinkState: state.saveLinkState
