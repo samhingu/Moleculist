@@ -7,21 +7,19 @@ import BlogList from '../components/blog/BlogList'
 import BlogAddEdit from '../components/blog/BlogAddEdit'
 
 class BlogListPage extends Component {
-    
-    
-    onBlogClick(link) {
+    _onBlogClick(link) {
         this.props.actions.editLink(link)
     }
-    onAddBlogClick() {
+    _onAddBlogClick() {
         this.props.actions.editLink({ title: 'My Title', body: 'My Body' });
     }
-    onLoadLink() {
+    _onLoadLinkClick() {
         this.props.actions.getLinks()
     }
-    onClose() {
+    _onSaveClose() {
         this.props.actions.editLinkCancel()
     }
-    onSubmit(link) {
+    _onSaveLinkClick(link) {
         this.props.actions.saveLink(link);
     }
 
@@ -29,27 +27,24 @@ class BlogListPage extends Component {
         return (
             <BlogAddEdit
                 saving={isSaving}
-                onClose={this.onClose.bind(this) }
-                onSubmit={this.onSubmit.bind(this) }
-                isAdd={!link._id} link={link}  />
+                onClose={this._onSaveClose.bind(this) }
+                onSubmit={this._onSaveLinkClick.bind(this) }
+                isAdd={!link._id}
+                link={link}  />
         )
     }
     render() {
-        var addEditBlog
-        if (this.props.saveLinkData.title) {
-            addEditBlog = this._renderAddEditBlogPage(this.props.saveLinkData, this.props.saveLinkState.isLoading)
-        }
+        const {saveLinkData, saveLinkState, status, links } = this.props;
         return (
             <div>
-                {addEditBlog}
+                {!!saveLinkData.title
+                    && this._renderAddEditBlogPage(saveLinkData, saveLinkState.isLoading) }
                 <BlogList
-                    saving={this.props.saveLinkState.isLoading}
-                    isLoading={this.props.status.isLoading}
-                    errorMessage={this.props.status.errorMessage}
-                    links={this.props.links}
-                    loadLinks={this.onLoadLink.bind(this) }
-                    onBlogClick={this.onBlogClick.bind(this) }
-                    onAddBlogClick={this.onAddBlogClick.bind(this) }
+                    errorMessage={status.errorMessage}
+                    links={links}
+                    loadLinks={this._onLoadLinkClick.bind(this) }
+                    onBlogClick={this._onBlogClick.bind(this) }
+                    onAddBlogClick={this._onAddBlogClick.bind(this) }
                     />
             </div>
         )

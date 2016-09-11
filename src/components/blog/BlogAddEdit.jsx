@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component, PropTypes} from 'react'
 import objectAssign from 'object-assign'
 
 import LayerForm from 'grommet-templates/components/LayerForm'
@@ -11,7 +11,7 @@ class BlogAddEdit extends Component {
         this.props.onSubmit(link)
     }
     render() {
-        const {isAdd, link, saving, onSubmit, onClose } = this.props;
+        const {isAdd, link, saving, onClose } = this.props;
         return (
             <LayerForm
                 busy={saving}
@@ -34,4 +34,12 @@ class BlogAddEdit extends Component {
     }
 }
 
-export default BlogAddEdit;
+BlogAddEdit.propTypes = {
+    isAdd: PropTypes.bool.isRequired,
+    link: PropTypes.object.isRequired,
+    saving: PropTypes.bool.isRequired,
+    onSubmit: PropTypes.func.isRequired,
+    onClose: PropTypes.func.isRequired
+}
+
+export default BlogAddEdit

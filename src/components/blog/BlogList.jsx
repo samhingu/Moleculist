@@ -1,72 +1,59 @@
-import React, {Component} from 'react'
+import React, {Component, PropTypes} from 'react'
 
 import Tiles from 'grommet/components/Tiles'
 import Card from 'grommet/components/Card'
-import Heading from 'grommet/components/Heading'
 import Box from 'grommet/components/Box'
-import Anchor  from 'grommet/components/Anchor'
 import Button  from 'grommet/components/Button'
-
-
-import SocialFacebook from 'grommet/components/icons/base/SocialFacebook'
-import SocialLinkedin  from 'grommet/components/icons/base/SocialLinkedin'
-import SocialTwitter from 'grommet/components/icons/base/SocialTwitter'
-import LinkNext from 'grommet/components/icons/base/LinkNext'
-import Spinning from 'grommet/components/icons/Spinning'
+import Timestamp  from 'grommet/components/Timestamp'
 import ChapterAddIcon from 'grommet/components/icons/base/ChapterAdd'
 
-import {NotifyError, NotifyLoading} from '../common/Notify'
+import { NotifyError } from '../common/Notify'
 
 class BlogList extends Component {
-    componentDidMount() {
-        this.props.loadLinks();
-    }
-
-    shouldComponentUpdate(nextProps, nextState) {
-        if (!nextProps.saving && this.props.saving) {
-            this.props.loadLinks()
-        }
-        return true;
-    }
-    _onArticleClick(link) {
-        this.props.onBlogClick(link);
-    }
     _renderBlogItem(link) {
+        const {_id, title, body, createdOn} = link
         return (
-            <Card key={link._id} onClick={this._onArticleClick.bind(this, link) }
-                label={link.title}
-                heading={link.title}
-                description={link.body}>
-                <Heading tag="h2">
-                    {link.body}
-                </Heading>
-                <Box align="end">
-                    <SocialTwitter />
-                </Box>
+            <Card key={_id} label={title} heading={title} description={body}
+                onClick={this.props.onBlogClick.bind(this, link) }>
+                <Timestamp value={createdOn} />
             </Card>
         )
     }
-    _renderBlogList(links) {
+    _renderBlogList() {
         return (
-            <Tiles size="large" colorIndex="light-2" fill={true} selectable={true}>
-                {links.map(this._renderBlogItem.bind(this)) }
+            <Tiles size="large" colorIndex="light-2" fill={true} selectable={true}
+                onMore={this.props.loadLinks.bind(this) }>
+                { this.props.links.map(this._renderBlogItem.bind(this)) }
             </Tiles>
         )
     }
     render() {
-        let { isLoading, errorMessage, links } = this.props
+        const { errorMessage, onAddBlogClick } = this.props
 
         return (
             <div>
+                {/* Header Panel  */}
                 <Box align="center" justify="center" pad="small">
-                    <Button  label="Add" icon={<ChapterAddIcon />} onClick={this.props.onAddBlogClick.bind(this) } />
+                    <Button label="Add" icon={<ChapterAddIcon />}
+                        onClick={onAddBlogClick.bind(this) } />
                 </Box>
-                <NotifyLoading loading={isLoading} message="Blogs"  />
-                <NotifyError title="Error getting blogs" message={errorMessage} />
-                { !!errorMessage || this._renderBlogList(links) }
+
+                {/* Show Error  */}
+                <NotifyError title="Error loading blogs" message={errorMessage} />
+
+                {/* Blog List */}
+                { !!errorMessage || this._renderBlogList() }
             </div>
         )
     }
 }
+
+BlogList.propTypes = {
+    errorMessage: PropTypes.string,
+    links: PropTypes.arrayOf(PropTypes.object).isRequired,
+    loadLinks: PropTypes.func.isRequired,
+    onAddBlogClick: PropTypes.func.isRequired,
+    onBlogClick: PropTypes.func.isRequired
+};
 
 export default BlogList

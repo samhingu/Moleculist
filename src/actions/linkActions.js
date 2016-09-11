@@ -37,7 +37,10 @@ const saveLinkSuccess = createAction(ActionTypes.SAVE_LINK_SUCCESS)
 const saveLink = (link) => (dispatch) => {
     dispatch(saveLinkRequest())
     apiSaveLink(link,
-        () => dispatch(saveLinkSuccess()),
+        () => {
+            dispatch(saveLinkSuccess())
+            dispatch(getLinks())
+        },
         (errorMessage) => dispatch(saveLinkError(errorMessage))
     )
 }
